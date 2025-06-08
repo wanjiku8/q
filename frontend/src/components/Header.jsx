@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../assets/WhatsApp_Image_2025-01-28_at_4.10.08_AM-removebg-preview.png';
+import { Link, useLocation } from 'react-router-dom';
+import logo from '../assets/qkenya.png';
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMobile, setIsMobile] = useState(window.innerWidth < 768);
+  const location = useLocation();
 
   useEffect(() => {
     const handleResize = () => {
@@ -15,72 +16,89 @@ const Header = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+
+  const isActive = (path) => location.pathname === path;
 
   return (
     <header style={headerStyle}>
       <div style={containerStyle}>
-        {/* LOGO */}
-        <Link to="/" style={{ textDecoration: 'none', display: 'flex', alignItems: 'center' }}>
-          <div style={{ display: 'flex', alignItems: 'center' }}>
-            <img
-              src={logo}
-              alt="Queer Kenya Logo"
-              width="154"
-              height="154"
-              style={{ borderRadius: '8px', marginRight: '18px', marginLeft: '-14px' }}
-            />
-            <div>
-              <h1 style={{ margin: 0, fontSize: '22px', fontWeight: 600, color: '#111827' }}>Queer Kenya</h1>
-              <p style={{ margin: 0, fontSize: '14px', color: '#6b7280' }}>Empowering Our Community</p>
-            </div>
+        {/* Logo */}
+        <Link to="/" style={logoWrapper}>
+          <img src={logo} alt="Queer Kenya Logo" style={logoStyle} />
+          <div>
+            <h1 style={titleStyle}>Queer Kenya</h1>
+            <p style={subtitleStyle}>Empowering Our Community</p>
           </div>
         </Link>
 
-        {/* NAVIGATION OR HAMBURGER */}
+        {/* Navigation or Hamburger */}
         {isMobile ? (
-          <>
-            <button onClick={toggleMenu} style={hamburgerButton}>
-              <div style={burger}></div>
-              <div style={burger}></div>
-              <div style={burger}></div>
-            </button>
-          </>
+          <button onClick={toggleMenu} style={hamburgerButton}>
+            <div style={burger}></div>
+            <div style={burger}></div>
+            <div style={burger}></div>
+          </button>
         ) : (
           <nav style={navStyle}>
-            <Link to="/" style={navLink}>Home</Link>
-            <Link to="/about" style={navLink}>About</Link>
-            <Link to="/events" style={navLink}>Events</Link>
-            <Link to="/team" style={navLink}>Team</Link>
-            <Link to="/resources" style={navLink}>Resources</Link>
-            <Link to="/join-us" style={navLink}>Get Involved</Link>
-            <Link to="/contact" style={ctaButton}>Support Us</Link>
+            {navLinks.map(({ to, label }) => (
+              <Link
+                key={to}
+                to={to}
+                style={{
+                  ...navLink,
+                  ...(isActive(to) ? activeLink : {}),
+                }}
+              >
+                {label}
+              </Link>
+            ))}
+            <Link to="/contact" style={ctaButton}>Contact Us</Link>
           </nav>
         )}
       </div>
 
-      {/* MOBILE NAV MENU */}
-      {isMobile && isMenuOpen && (
-        <div style={mobileMenu}>
-          <Link to="/" onClick={toggleMenu} style={mobileLink}>Home</Link>
-          <Link to="/about" onClick={toggleMenu} style={mobileLink}>About</Link>
-          <Link to="/events" onClick={toggleMenu} style={mobileLink}>Events</Link>
-          <Link to="/team" onClick={toggleMenu} style={mobileLink}>Team</Link>
-          <Link to="/resources" onClick={toggleMenu} style={mobileLink}>Resources</Link>
-          <Link to="/join-us" onClick={toggleMenu} style={mobileLink}>Get Involved</Link>
-          <Link to="/contact" onClick={toggleMenu} style={mobileCTA}>Support Us</Link>
-        </div>
-      )}
+      {/* Mobile Dropdown Menu with animation */}
+      <div
+        style={{
+          ...mobileMenu,
+          maxHeight: isMobile && isMenuOpen ? '500px' : '0px',
+          padding: isMobile && isMenuOpen ? '12px' : '0px 12px',
+        }}
+      >
+        {navLinks.map(({ to, label }) => (
+          <Link
+            key={to}
+            to={to}
+            onClick={toggleMenu}
+            style={{
+              ...mobileLink,
+              ...(isActive(to) ? activeLink : {}),
+            }}
+          >
+            {label}
+          </Link>
+        ))}
+        <Link to="/contact" onClick={toggleMenu} style={mobileCTA}>Contact Us</Link>
+      </div>
     </header>
   );
 };
 
-// Styles
+const navLinks = [
+  { to: '/', label: 'Home' },
+  { to: '/about', label: 'About' },
+  { to: '/events', label: 'Events' },
+  { to: '/team', label: 'Team' },
+  { to: '/resources', label: 'Resources' },
+  { to: '/join-us', label: 'Get Involved' },
+];
+
+// --- Styles ---
+
 const headerStyle = {
-  backgroundColor: '#f8f6f7',
-  borderBottom: '1px solid #e2e8f0',
+  backgroundColor: '#fff',
+  borderBottom: '1px solid #e5e7eb',
   padding: '12px 24px',
   fontFamily: 'Segoe UI, sans-serif',
   boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
@@ -98,30 +116,62 @@ const containerStyle = {
   flexWrap: 'wrap',
 };
 
+const logoWrapper = {
+  textDecoration: 'none',
+  display: 'flex',
+  alignItems: 'center',
+};
+
+const logoStyle = {
+  width: '140px',
+  height: '120px',
+  borderRadius: '8px',
+  marginRight: '19px',
+  marginLeft:'-13px'
+};
+
+const titleStyle = {
+  margin: 0,
+  fontSize: '20px',
+  fontWeight: 600,
+  color: '#111827',
+};
+
+const subtitleStyle = {
+  margin: 0,
+  fontSize: '14px',
+  color: '#6b7280',
+};
+
 const navStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '20px',
-  flexWrap: 'wrap',
+  gap: '22px',
 };
 
 const navLink = {
+  position: 'relative',
   textDecoration: 'none',
   color: '#374151',
   fontSize: '16px',
-  fontWeight: '500',
-  padding: '8px 4px',
+  fontWeight: 500,
+  padding: '6px 0',
   transition: 'color 0.3s',
 };
 
+const activeLink = {
+  color: '#4B0082',
+  borderBottom: '3px solid #4B0082',
+};
+
 const ctaButton = {
-  textDecoration: 'none',
   backgroundColor: '#4B0082',
   color: '#fff',
-  padding: '8px 16px',
-  borderRadius: '6px',
-  fontWeight: '600',
-  transition: 'background-color 0.3s',
+  textDecoration: 'none',
+  padding: '10px 18px',
+  borderRadius: '8px',
+  fontWeight: 600,
+  transition: 'background 0.3s',
 };
 
 const burger = {
@@ -140,11 +190,11 @@ const hamburgerButton = {
 
 const mobileMenu = {
   backgroundColor: '#f9fafb',
-  padding: '12px',
   display: 'flex',
   flexDirection: 'column',
   gap: '12px',
-  marginTop: '10px',
+  overflow: 'hidden',
+  transition: 'all 0.4s ease-in-out',
 };
 
 const mobileLink = {
@@ -152,11 +202,12 @@ const mobileLink = {
   color: '#1f2937',
   fontSize: '18px',
   fontWeight: 500,
+  padding: '8px 0',
 };
 
 const mobileCTA = {
   ...mobileLink,
-  backgroundColor: '#f97316',
+  backgroundColor: '#4B0082',
   color: '#fff',
   padding: '10px',
   borderRadius: '6px',

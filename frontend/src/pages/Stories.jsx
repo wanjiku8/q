@@ -107,9 +107,9 @@ const StoriesPage = () => {
       display: 'grid',
       gridTemplateColumns: '250px 1fr',
       gap: '30px',
-      maxWidth: '1200px',
+      maxWidth: '1280px',
       margin: '0 auto',
-      padding: '30px 20px',
+      padding: '60px 20px',
       fontFamily: "'Inter', sans-serif",
       minHeight: '100vh'
     }}>
@@ -117,7 +117,8 @@ const StoriesPage = () => {
       <div style={{
         position: 'sticky',
         top: '20px',
-        height: 'fit-content'
+        height: 'fit-content',
+        marginBottom: '30px'
       }}>
         <div style={{
           backgroundColor: '#f9f5ff',
@@ -126,7 +127,7 @@ const StoriesPage = () => {
           boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
         }}>
           <h3 style={{
-            color: '#4B0082',
+            color: 'black',
             marginTop: '0',
             fontSize: '1.2rem',
             borderBottom: '1px solid #e9d5ff',
@@ -168,11 +169,12 @@ const StoriesPage = () => {
           backgroundColor: '#f9f5ff',
           borderRadius: '12px',
           padding: '20px',
-          marginTop: '20px',
+          marginTop: '60px',
+          marginBottom: '30px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
         }}>
           <h3 style={{
-            color: '#4B0082',
+            color: 'black',
             marginTop: '0',
             fontSize: '1.2rem',
             borderBottom: '1px solid #e9d5ff',
@@ -190,6 +192,7 @@ const StoriesPage = () => {
                 style={{
                   width: '100%',
                   padding: '10px',
+                  color: '#333',
                   borderRadius: '6px',
                   border: '1px solid #ddd',
                   fontSize: '14px'
@@ -258,7 +261,7 @@ const StoriesPage = () => {
       {/* Right Content Area */}
       <div>
         <h1 style={{
-          color: '#4B0082',
+          color: 'black',
           fontSize: '2rem',
           marginTop: '0',
           marginBottom: '25px'
