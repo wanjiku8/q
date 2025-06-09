@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { FaFilter, FaShare, FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const StoriesPage = () => {
   // Mock data
@@ -43,6 +43,8 @@ const StoriesPage = () => {
   const [newComment, setNewComment] = useState({});
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [expandedStory, setExpandedStory] = useState(null);
+  const [showFilters, setShowFilters] = useState(false);
+  const [showStoryForm, setShowStoryForm] = useState(false);
 
   const categories = ['All', 'Coming Out', 'Community', 'Workplace', 'Family', 'Health'];
 
@@ -69,6 +71,7 @@ const StoriesPage = () => {
     };
     setStories([story, ...stories]);
     setNewStory({ title: '', content: '', category: '' });
+    setShowStoryForm(false);
   };
 
   const handleSubmitComment = (storyId, e) => {
@@ -104,82 +107,147 @@ const StoriesPage = () => {
 
   return (
     <div style={{
-      display: 'grid',
-      gridTemplateColumns: '250px 1fr',
-      gap: '30px',
       maxWidth: '1280px',
       margin: '0 auto',
-      padding: '60px 20px',
+      marginTop:'25px',
+      marginBottom: '25px',
+      padding: '20px',
       fontFamily: "'Inter', sans-serif",
       minHeight: '100vh'
     }}>
-      {/* Left Sidebar */}
+      {/* Header */}
       <div style={{
-        position: 'sticky',
-        top: '20px',
-        height: 'fit-content',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
         marginBottom: '30px'
       }}>
+        <h1 style={{
+          color: 'black',
+          fontSize: '1.5rem',
+          margin: 0,
+          '@media (min-width: 768px)': {
+            fontSize: '2rem'
+          }
+        }}>
+          {selectedCategory === 'All' ? 'All Stories' : `${selectedCategory} Stories`}
+        </h1>
+        
+        <div style={{ display: 'flex', gap: '10px' }}>
+          <button 
+            onClick={() => setShowFilters(!showFilters)}
+            style={{
+              background: '#4B0082',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              padding: '8px 12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px'
+            }}
+          >
+            <FaFilter /> {showFilters ? <FaChevronUp /> : <FaChevronDown />}
+          </button>
+          
+          <button 
+            onClick={() => setShowStoryForm(!showStoryForm)}
+            style={{
+              background: '#4B0082',
+              color: 'white',
+              border: 'none',
+              borderRadius: '6px',
+              padding: '8px 12px',
+              cursor: 'pointer',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '5px'
+            }}
+          >
+            <FaShare /> Share
+          </button>
+        </div>
+      </div>
+
+      {/* Filters Dropdown */}
+      {showFilters && (
         <div style={{
           backgroundColor: '#f9f5ff',
           borderRadius: '12px',
-          padding: '20px',
+          padding: '15px',
+          marginBottom: '20px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
         }}>
           <h3 style={{
-            color: 'black',
-            marginTop: '0',
-            fontSize: '1.2rem',
-            borderBottom: '1px solid #e9d5ff',
-            paddingBottom: '10px'
-          }}>Categories</h3>
-          <ul style={{
-            listStyle: 'none',
-            padding: '0',
-            margin: '0'
+            marginTop: 0,
+            marginBottom: '10px',
+            fontSize: '1.1rem',
+            color: '#4B0082'
+          }}>Filter Stories</h3>
+          <div style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+            gap: '8px'
           }}>
             {categories.map(category => (
-              <li key={category} style={{ marginBottom: '8px' }}>
-                <button
-                  onClick={() => setSelectedCategory(category)}
-                  style={{
-                    background: selectedCategory === category ? '#4B0082' : 'transparent',
-                    color: selectedCategory === category ? 'white' : '#4B0082',
-                    border: 'none',
-                    borderRadius: '6px',
-                    padding: '8px 12px',
-                    width: '100%',
-                    textAlign: 'left',
-                    cursor: 'pointer',
-                    transition: 'all 0.2s',
-                    fontWeight: selectedCategory === category ? '600' : '500',
-                    ':hover': {
-                      background: selectedCategory !== category ? '#f3e8ff' : undefined
-                    }
-                  }}
-                >
-                  {category}
-                </button>
-              </li>
+              <button
+                key={category}
+                onClick={() => {
+                  setSelectedCategory(category);
+                  setShowFilters(false);
+                }}
+                style={{
+                  background: selectedCategory === category ? '#4B0082' : '#e9d5ff',
+                  color: selectedCategory === category ? 'white' : '#4B0082',
+                  border: 'none',
+                  borderRadius: '20px',
+                  padding: '6px 12px',
+                  cursor: 'pointer',
+                  fontSize: '0.9rem',
+                  fontWeight: selectedCategory === category ? '600' : '500'
+                }}
+              >
+                {category}
+              </button>
             ))}
-          </ul>
+          </div>
         </div>
+      )}
 
+      {/* Share Story Form */}
+      {showStoryForm && (
         <div style={{
           backgroundColor: '#f9f5ff',
           borderRadius: '12px',
           padding: '20px',
-          marginTop: '60px',
-          marginBottom: '30px',
+          marginBottom: '20px',
           boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
         }}>
-          <h3 style={{
-            color: 'black',
-            marginTop: '0',
-            fontSize: '1.2rem',
-            borderBottom: '1px solid #e9d5ff',
-            paddingBottom: '10px'
-          }}>Share Your Story</h3>
+          <div style={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            marginBottom: '15px'
+          }}>
+            <h3 style={{
+              color: 'black',
+              margin: 0,
+              fontSize: '1.2rem'
+            }}>Share Your Story</h3>
+            <button 
+              onClick={() => setShowStoryForm(false)}
+              style={{
+                background: 'none',
+                border: 'none',
+                fontSize: '1.2rem',
+                cursor: 'pointer',
+                color: '#4B0082'
+              }}
+            >
+              <FaChevronUp />
+            </button>
+          </div>
           <form onSubmit={handleSubmitStory}>
             <div style={{ marginBottom: '15px' }}>
               <input
@@ -256,244 +324,248 @@ const StoriesPage = () => {
             </button>
           </form>
         </div>
-      </div>
+      )}
 
-      {/* Right Content Area */}
-      <div>
-        <h1 style={{
-          color: 'black',
-          fontSize: '2rem',
-          marginTop: '0',
-          marginBottom: '25px'
+      {/* Stories List */}
+      {filteredStories.length === 0 ? (
+        <div style={{
+          backgroundColor: '#f9f5ff',
+          padding: '40px',
+          borderRadius: '12px',
+          textAlign: 'center'
         }}>
-          {selectedCategory === 'All' ? 'All Stories' : `${selectedCategory} Stories`}
-        </h1>
-
-        {filteredStories.length === 0 ? (
-          <div style={{
-            backgroundColor: '#f9f5ff',
-            padding: '40px',
-            borderRadius: '12px',
-            textAlign: 'center'
-          }}>
-            <p style={{ color: '#666', fontSize: '1.1rem' }}>
-              No stories found in this category. Be the first to share your story!
-            </p>
-          </div>
-        ) : (
-          <div style={{
-            display: 'grid',
-            gap: '25px'
-          }}>
-            {filteredStories.map(story => (
-              <article key={story.id} style={{
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                overflow: 'hidden',
-                boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
-                border: '1px solid #f3e8ff'
+          <p style={{ color: '#666', fontSize: '1.1rem' }}>
+            No stories found in this category. Be the first to share your story!
+          </p>
+        </div>
+      ) : (
+        <div style={{
+          display: 'grid',
+          gap: '25px'
+        }}>
+          {filteredStories.map(story => (
+            <article key={story.id} style={{
+              backgroundColor: 'white',
+              borderRadius: '12px',
+              overflow: 'hidden',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.05)',
+              border: '1px solid #f3e8ff'
+            }}>
+              <div style={{
+                padding: '25px',
+                '@media (max-width: 480px)': {
+                  padding: '15px'
+                }
               }}>
                 <div style={{
-                  padding: '25px'
+                  display: 'flex',
+                  alignItems: 'center',
+                  marginBottom: '15px',
+                  flexWrap: 'wrap',
+                  gap: '10px'
                 }}>
-                  <div style={{
-                    display: 'flex',
-                    alignItems: 'center',
-                    marginBottom: '15px'
-                  }}>
-                    <span style={{
-                      backgroundColor: '#e9d5ff',
-                      color: '#4B0082',
-                      padding: '4px 10px',
-                      borderRadius: '20px',
-                      fontSize: '0.8rem',
-                      fontWeight: '600'
-                    }}>
-                      {story.category}
-                    </span>
-                    <span style={{
-                      color: '#888',
-                      fontSize: '0.9rem',
-                      marginLeft: 'auto'
-                    }}>
-                      {story.date}
-                    </span>
-                  </div>
-
-                  <h2 style={{
+                  <span style={{
+                    backgroundColor: '#e9d5ff',
                     color: '#4B0082',
-                    fontSize: '1.5rem',
-                    marginTop: '0',
-                    marginBottom: '10px'
+                    padding: '4px 10px',
+                    borderRadius: '20px',
+                    fontSize: '0.8rem',
+                    fontWeight: '600'
                   }}>
-                    {story.title}
-                  </h2>
-
-                  <p style={{
-                    color: '#555',
-                    lineHeight: '1.7',
-                    marginBottom: '15px'
+                    {story.category}
+                  </span>
+                  <span style={{
+                    color: '#888',
+                    fontSize: '0.9rem',
+                    marginLeft: 'auto'
                   }}>
-                    {expandedStory === story.id 
-                      ? story.content 
-                      : `${story.content.substring(0, 200)}...`}
-                  </p>
-
-                  <div style={{
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'center'
-                  }}>
-                    <span style={{
-                      color: '#4B0082',
-                      fontWeight: '600'
-                    }}>
-                      {story.author}
-                    </span>
-
-                    <button 
-                      onClick={() => setExpandedStory(expandedStory === story.id ? null : story.id)}
-                      style={{
-                        backgroundColor: 'transparent',
-                        border: 'none',
-                        color: '#4B0082',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        display: 'flex',
-                        alignItems: 'center',
-                        padding: '5px 10px',
-                        borderRadius: '6px',
-                        ':hover': {
-                          backgroundColor: '#f9f5ff'
-                        }
-                      }}
-                    >
-                      {expandedStory === story.id ? 'Show less' : 'Read more'}
-                      <svg 
-                        width="16" 
-                        height="16" 
-                        viewBox="0 0 24 24" 
-                        fill="none" 
-                        xmlns="http://www.w3.org/2000/svg"
-                        style={{ marginLeft: '5px' }}
-                      >
-                        <path 
-                          d={expandedStory === story.id ? "M19 9L12 16L5 9" : "M5 15L12 8L19 15"} 
-                          stroke="#4B0082" 
-                          strokeWidth="2" 
-                          strokeLinecap="round" 
-                          strokeLinejoin="round"
-                        />
-                      </svg>
-                    </button>
-                  </div>
+                    {story.date}
+                  </span>
                 </div>
 
-                {/* Expanded content with comments */}
-                {expandedStory === story.id && (
-                  <div style={{
-                    backgroundColor: '#f9fafb',
-                    padding: '25px',
-                    borderTop: '1px solid #eee'
+                <h2 style={{
+                  color: '#4B0082',
+                  fontSize: '1.5rem',
+                  marginTop: '0',
+                  marginBottom: '10px',
+                  '@media (max-width: 480px)': {
+                    fontSize: '1.2rem'
+                  }
+                }}>
+                  {story.title}
+                </h2>
+
+                <p style={{
+                  color: '#555',
+                  lineHeight: '1.7',
+                  marginBottom: '15px'
+                }}>
+                  {expandedStory === story.id 
+                    ? story.content 
+                    : `${story.content.substring(0, 200)}...`}
+                </p>
+
+                <div style={{
+                  display: 'flex',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                  flexWrap: 'wrap',
+                  gap: '10px'
+                }}>
+                  <span style={{
+                    color: '#4B0082',
+                    fontWeight: '600'
                   }}>
-                    <h3 style={{
+                    {story.author}
+                  </span>
+
+                  <button 
+                    onClick={() => setExpandedStory(expandedStory === story.id ? null : story.id)}
+                    style={{
+                      backgroundColor: 'transparent',
+                      border: 'none',
                       color: '#4B0082',
-                      fontSize: '1.1rem',
-                      marginTop: '0',
-                      marginBottom: '20px'
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      display: 'flex',
+                      alignItems: 'center',
+                      padding: '5px 10px',
+                      borderRadius: '6px',
+                      ':hover': {
+                        backgroundColor: '#f9f5ff'
+                      }
+                    }}
+                  >
+                    {expandedStory === story.id ? 'Show less' : 'Read more'}
+                    <svg 
+                      width="16" 
+                      height="16" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      xmlns="http://www.w3.org/2000/svg"
+                      style={{ marginLeft: '5px' }}
+                    >
+                      <path 
+                        d={expandedStory === story.id ? "M19 9L12 16L5 9" : "M5 15L12 8L19 15"} 
+                        stroke="#4B0082" 
+                        strokeWidth="2" 
+                        strokeLinecap="round" 
+                        strokeLinejoin="round"
+                      />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+              {/* Expanded content with comments */}
+              {expandedStory === story.id && (
+                <div style={{
+                  backgroundColor: '#f9fafb',
+                  padding: '25px',
+                  borderTop: '1px solid #eee',
+                  '@media (max-width: 480px)': {
+                    padding: '15px'
+                  }
+                }}>
+                  <h3 style={{
+                    color: '#4B0082',
+                    fontSize: '1.1rem',
+                    marginTop: '0',
+                    marginBottom: '20px'
+                  }}>
+                    {story.comments.length} {story.comments.length === 1 ? 'Comment' : 'Comments'}
+                  </h3>
+
+                  {story.comments.length > 0 ? (
+                    <div style={{
+                      marginBottom: '25px'
                     }}>
-                      {story.comments.length} {story.comments.length === 1 ? 'Comment' : 'Comments'}
-                    </h3>
-
-                    {story.comments.length > 0 ? (
-                      <div style={{
-                        marginBottom: '25px'
-                      }}>
-                        {story.comments.map(comment => (
-                          <div key={comment.id} style={{
-                            marginBottom: '20px',
-                            paddingBottom: '20px',
-                            borderBottom: '1px solid #eee'
+                      {story.comments.map(comment => (
+                        <div key={comment.id} style={{
+                          marginBottom: '20px',
+                          paddingBottom: '20px',
+                          borderBottom: '1px solid #eee'
+                        }}>
+                          <div style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            marginBottom: '8px',
+                            flexWrap: 'wrap',
+                            gap: '5px'
                           }}>
-                            <div style={{
-                              display: 'flex',
-                              alignItems: 'center',
-                              marginBottom: '8px'
+                            <span style={{
+                              fontWeight: '600',
+                              color: '#4B0082'
                             }}>
-                              <span style={{
-                                fontWeight: '600',
-                                color: '#4B0082'
-                              }}>
-                                {comment.author}
-                              </span>
-                              <span style={{
-                                color: '#888',
-                                fontSize: '0.8rem',
-                                marginLeft: '10px'
-                              }}>
-                                {comment.date}
-                              </span>
-                            </div>
-                            <p style={{
-                              color: '#333',
-                              margin: '0',
-                              lineHeight: '1.6'
+                              {comment.author}
+                            </span>
+                            <span style={{
+                              color: '#888',
+                              fontSize: '0.8rem',
+                              marginLeft: '10px',
+                              '@media (max-width: 480px)': {
+                                marginLeft: '0'
+                              }
                             }}>
-                              {comment.text}
-                            </p>
+                              {comment.date}
+                            </span>
                           </div>
-                        ))}
-                      </div>
-                    ) : (
-                      <p style={{
-                        color: '#888',
-                        fontStyle: 'italic',
-                        marginBottom: '25px'
-                      }}>
-                        No comments yet. Be the first to share your thoughts!
-                      </p>
-                    )}
+                          <p style={{
+                            color: '#333',
+                            margin: '0',
+                            lineHeight: '1.6'
+                          }}>
+                            {comment.text}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <p style={{
+                      color: '#888',
+                      fontStyle: 'italic',
+                      marginBottom: '25px'
+                    }}>
+                      No comments yet. Be the first to share your thoughts!
+                    </p>
+                  )}
 
-                    <form onSubmit={(e) => handleSubmitComment(story.id, e)}>
-                      <textarea
-                        value={newComment[story.id] || ''}
-                        onChange={(e) => handleCommentChange(story.id, e)}
-                        placeholder="Write your comment..."
-                        required
-                        rows="3"
-                        style={{
-                          width: '100%',
-                          padding: '12px',
-                          borderRadius: '8px',
-                          border: '1px solid #ddd',
-                          marginBottom: '15px',
-                          resize: 'vertical',
-                          fontSize: '14px'
-                        }}
-                      ></textarea>
-                      <button type="submit" style={{
-                        backgroundColor: '#4B0082',
-                        color: 'white',
-                        padding: '10px 20px',
-                        border: 'none',
+                  <form onSubmit={(e) => handleSubmitComment(story.id, e)}>
+                    <textarea
+                      value={newComment[story.id] || ''}
+                      onChange={(e) => handleCommentChange(story.id, e)}
+                      placeholder="Write your comment..."
+                      required
+                      rows="3"
+                      style={{
+                        width: '100%',
+                        padding: '12px',
                         borderRadius: '8px',
-                        cursor: 'pointer',
-                        fontWeight: '600',
-                        transition: 'background-color 0.2s',
-                        ':hover': {
-                          backgroundColor: '#3a0069'
-                        }
-                      }}>
-                        Post Comment
-                      </button>
-                    </form>
-                  </div>
-                )}
-              </article>
-            ))}
-          </div>
-        )}
-      </div>
+                        border: '1px solid #ddd',
+                        marginBottom: '15px',
+                        resize: 'vertical',
+                        fontSize: '14px'
+                      }}
+                    ></textarea>
+                    <button type="submit" style={{
+                      backgroundColor: '#4B0082',
+                      color: 'white',
+                      padding: '10px 20px',
+                      border: 'none',
+                      borderRadius: '8px',
+                      cursor: 'pointer',
+                      fontWeight: '600',
+                      width: '100%'
+                    }}>
+                      Post Comment
+                    </button>
+                  </form>
+                </div>
+              )}
+            </article>
+          ))}
+        </div>
+      )}
     </div>
   );
 };

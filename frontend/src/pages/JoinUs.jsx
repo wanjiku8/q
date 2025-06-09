@@ -1,8 +1,12 @@
 import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
+import { useMediaQuery } from 'react-responsive';
 
 const JoinUs = () => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const isTablet = useMediaQuery({ minWidth: 768, maxWidth: 1023 });
+
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()
       .min(2, "First name must be at least 2 characters.")
@@ -47,23 +51,65 @@ const JoinUs = () => {
     resetForm();
   };
 
+  // Responsive styles
+  const containerStyles = {
+    padding: isMobile ? "1rem" : "2rem",
+    maxWidth: "1200px",
+    margin: "0 auto",
+    fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
+  };
+
+  const headerStyles = {
+    textAlign: "center",
+    marginBottom: isMobile ? "1.5rem" : "2rem",
+    padding: isMobile ? "1.5rem 1rem" : "2rem 1.5rem",
+    backgroundColor: "#f8f9fa",
+    borderRadius: "8px"
+  };
+
+  const formContainerStyles = {
+    backgroundColor: "white",
+    borderRadius: "8px",
+    boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
+    padding: isMobile ? "1.5rem" : "2rem",
+    maxWidth: "900px",
+    margin: "0 auto"
+  };
+
+  const nameFieldContainerStyles = {
+    display: "flex",
+    flexDirection: isMobile ? "column" : "row",
+    gap: "1rem",
+    marginBottom: "1rem"
+  };
+
+  const fieldContainerStyles = {
+    flex: 1,
+    marginBottom: "1rem"
+  };
+
+  const labelStyles = {
+    display: "block",
+    marginBottom: "0.5rem",
+    fontWeight: "500",
+    color: "#444",
+    fontSize: isMobile ? "0.9rem" : "1rem"
+  };
+
+  const inputStyles = {
+    width: "100%",
+    padding: isMobile ? "0.65rem" : "0.75rem",
+    border: "1px solid #ddd",
+    borderRadius: "4px",
+    fontSize: isMobile ? "0.9rem" : "1rem"
+  };
+
   return (
-    <div style={{
-      padding: "2rem",
-      maxWidth: "1200px",
-      margin: "0 auto",
-      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif"
-    }}>
+    <div style={containerStyles}>
       {/* Header Section */}
-      <div style={{
-        textAlign: "center",
-        marginBottom: "2rem",
-        padding: "2rem 1.5rem",
-        backgroundColor: "#f8f9fa",
-        borderRadius: "8px"
-      }}>
+      <div style={headerStyles}>
         <h1 style={{
-          fontSize: "2rem",
+          fontSize: isMobile ? "1.5rem" : "2rem",
           fontWeight: "bold",
           color: "#4a148c",
           marginBottom: "0.5rem"
@@ -71,7 +117,7 @@ const JoinUs = () => {
           Join Our Community
         </h1>
         <p style={{
-          fontSize: "1rem",
+          fontSize: isMobile ? "0.9rem" : "1rem",
           color: "#555",
           maxWidth: "600px",
           margin: "0 auto"
@@ -81,17 +127,9 @@ const JoinUs = () => {
       </div>
 
       {/* Form Section */}
-      <div style={{
-        backgroundColor: "white",
-        borderRadius: "8px",
-        boxShadow: "0 2px 10px rgba(0,0,0,0.1)",
-        padding: "2rem",
-        maxWidth: "900px",
-        marginBottom: "2rem",
-        margin: "0 auto"
-      }}>
+      <div style={formContainerStyles}>
         <h2 style={{
-          fontSize: "1.5rem",
+          fontSize: isMobile ? "1.25rem" : "1.5rem",
           marginBottom: "1.5rem",
           color: "#333",
           borderBottom: "2px solid #f0f0f0",
@@ -108,177 +146,105 @@ const JoinUs = () => {
           {({ values, setFieldValue }) => (
             <Form>
               {/* Name Fields */}
-              <div style={{
-                display: "flex",
-                gap: "1rem",
-                marginBottom: "1rem"
-              }}>
-                <div style={{ flex: 1 }}>
-                  <label htmlFor="firstName" style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: "500",
-                    color: "#444"
-                  }}>
+              <div style={nameFieldContainerStyles}>
+                <div style={fieldContainerStyles}>
+                  <label htmlFor="firstName" style={labelStyles}>
                     First Name
                   </label>
                   <Field
                     name="firstName"
                     type="text"
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                      fontSize: "1rem"
-                    }}
+                    style={inputStyles}
                     placeholder="Enter your first name"
                   />
                   <ErrorMessage name="firstName" component="div" style={{
                     color: "#d32f2f",
-                    fontSize: "0.875rem",
+                    fontSize: "0.75rem",
                     marginTop: "0.25rem"
                   }} />
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label htmlFor="lastName" style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: "500",
-                    color: "#444"
-                  }}>
+                <div style={fieldContainerStyles}>
+                  <label htmlFor="lastName" style={labelStyles}>
                     Last Name
                   </label>
                   <Field
                     name="lastName"
                     type="text"
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                      fontSize: "1rem"
-                    }}
+                    style={inputStyles}
                     placeholder="Enter your last name"
                   />
                   <ErrorMessage name="lastName" component="div" style={{
                     color: "#d32f2f",
-                    fontSize: "0.875rem",
+                    fontSize: "0.75rem",
                     marginTop: "0.25rem"
                   }} />
                 </div>
               </div>
 
               {/* Email & Phone */}
-              <div style={{
-                display: "flex",
-                gap: "1rem",
-                marginBottom: "1rem"
-              }}>
-                <div style={{ flex: 1 }}>
-                  <label htmlFor="email" style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: "500",
-                    color: "#444"
-                  }}>
+              <div style={nameFieldContainerStyles}>
+                <div style={fieldContainerStyles}>
+                  <label htmlFor="email" style={labelStyles}>
                     Email
                   </label>
                   <Field
                     name="email"
                     type="email"
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                      fontSize: "1rem"
-                    }}
+                    style={inputStyles}
                     placeholder="your.email@example.com"
                   />
                   <ErrorMessage name="email" component="div" style={{
                     color: "#d32f2f",
-                    fontSize: "0.875rem",
+                    fontSize: "0.75rem",
                     marginTop: "0.25rem"
                   }} />
                 </div>
-                <div style={{ flex: 1 }}>
-                  <label htmlFor="phone" style={{
-                    display: "block",
-                    marginBottom: "0.5rem",
-                    fontWeight: "500",
-                    color: "#444"
-                  }}>
+                <div style={fieldContainerStyles}>
+                  <label htmlFor="phone" style={labelStyles}>
                     Phone Number (Optional)
                   </label>
                   <Field
                     name="phone"
                     type="text"
-                    style={{
-                      width: "100%",
-                      padding: "0.75rem",
-                      border: "1px solid #ddd",
-                      borderRadius: "4px",
-                      fontSize: "1rem"
-                    }}
+                    style={inputStyles}
                     placeholder="+254 XXX XXX XXX"
                   />
                   <ErrorMessage name="phone" component="div" style={{
                     color: "#d32f2f",
-                    fontSize: "0.875rem",
+                    fontSize: "0.75rem",
                     marginTop: "0.25rem"
                   }} />
                 </div>
               </div>
 
               {/* City */}
-              <div style={{ marginBottom: "1rem" }}>
-                <label htmlFor="city" style={{
-                  display: "block",
-                  marginBottom: "0.5rem",
-                  fontWeight: "500",
-                  color: "#444"
-                }}>
+              <div style={fieldContainerStyles}>
+                <label htmlFor="city" style={labelStyles}>
                   City/Town
                 </label>
                 <Field
                   name="city"
                   type="text"
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
-                    fontSize: "1rem"
-                  }}
+                  style={inputStyles}
                   placeholder="Enter your city or town"
                 />
                 <ErrorMessage name="city" component="div" style={{
                   color: "#d32f2f",
-                  fontSize: "0.875rem",
+                  fontSize: "0.75rem",
                   marginTop: "0.25rem"
                 }} />
               </div>
 
               {/* Involvement */}
-              <div style={{ marginBottom: "1rem" }}>
-                <label htmlFor="involvement" style={{
-                  display: "block",
-                  marginBottom: "0.5rem",
-                  fontWeight: "500",
-                  color: "#444"
-                }}>
+              <div style={fieldContainerStyles}>
+                <label htmlFor="involvement" style={labelStyles}>
                   How would you like to get involved?
                 </label>
                 <Field
                   as="select"
                   name="involvement"
                   style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
-                    fontSize: "1rem",
+                    ...inputStyles,
                     backgroundColor: "white"
                   }}
                 >
@@ -291,66 +257,46 @@ const JoinUs = () => {
                 </Field>
                 <ErrorMessage name="involvement" component="div" style={{
                   color: "#d32f2f",
-                  fontSize: "0.875rem",
+                  fontSize: "0.75rem",
                   marginTop: "0.25rem"
                 }} />
               </div>
 
               {/* Skills */}
-              <div style={{ marginBottom: "1rem" }}>
-                <label htmlFor="skills" style={{
-                  display: "block",
-                  marginBottom: "0.5rem",
-                  fontWeight: "500",
-                  color: "#444"
-                }}>
+              <div style={fieldContainerStyles}>
+                <label htmlFor="skills" style={labelStyles}>
                   Skills & Expertise (Optional)
                 </label>
                 <Field
                   name="skills"
                   type="text"
-                  style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
-                    fontSize: "1rem"
-                  }}
+                  style={inputStyles}
                   placeholder="Your skills..."
                 />
                 <ErrorMessage name="skills" component="div" style={{
                   color: "#d32f2f",
-                  fontSize: "0.875rem",
+                  fontSize: "0.75rem",
                   marginTop: "0.25rem"
                 }} />
               </div>
 
               {/* Motivation */}
-              <div style={{ marginBottom: "1rem" }}>
-                <label htmlFor="motivation" style={{
-                  display: "block",
-                  marginBottom: "0.5rem",
-                  fontWeight: "500",
-                  color: "#444"
-                }}>
+              <div style={fieldContainerStyles}>
+                <label htmlFor="motivation" style={labelStyles}>
                   Why do you want to join us?
                 </label>
                 <Field
                   as="textarea"
                   name="motivation"
                   style={{
-                    width: "100%",
-                    padding: "0.75rem",
-                    border: "1px solid #ddd",
-                    borderRadius: "4px",
-                    fontSize: "1rem",
+                    ...inputStyles,
                     minHeight: "100px"
                   }}
                   placeholder="Tell us more..."
                 />
                 <ErrorMessage name="motivation" component="div" style={{
                   color: "#d32f2f",
-                  fontSize: "0.875rem",
+                  fontSize: "0.75rem",
                   marginTop: "0.25rem"
                 }} />
               </div>
@@ -366,20 +312,20 @@ const JoinUs = () => {
                   type="checkbox"
                   style={{
                     marginRight: "0.5rem",
-                    width: "1rem",
-                    height: "1rem"
+                    width: isMobile ? "0.9rem" : "1rem",
+                    height: isMobile ? "0.9rem" : "1rem"
                   }}
                 />
                 <label htmlFor="privacyPolicy" style={{
                   color: "#444",
-                  fontSize: "0.95rem"
+                  fontSize: isMobile ? "0.85rem" : "0.95rem"
                 }}>
                   I agree to the privacy policy and terms of service
                 </label>
               </div>
               <ErrorMessage name="privacyPolicy" component="div" style={{
                 color: "#d32f2f",
-                fontSize: "0.875rem",
+                fontSize: "0.75rem",
                 marginTop: "-1rem",
                 marginBottom: "1rem"
               }} />
@@ -390,10 +336,10 @@ const JoinUs = () => {
                 style={{
                   backgroundColor: "#4a148c",
                   color: "white",
-                  padding: "0.75rem 1.5rem",
+                  padding: isMobile ? "0.65rem" : "0.75rem 1.5rem",
                   border: "none",
                   borderRadius: "4px",
-                  fontSize: "1rem",
+                  fontSize: isMobile ? "0.9rem" : "1rem",
                   fontWeight: "500",
                   cursor: "pointer",
                   width: "100%",

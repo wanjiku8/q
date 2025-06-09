@@ -9,9 +9,11 @@ const Header = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-      if (window.innerWidth >= 768) setIsMenuOpen(false);
+      const mobile = window.innerWidth < 768;
+      setIsMobile(mobile);
+      if (!mobile) setIsMenuOpen(false);
     };
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
@@ -23,21 +25,23 @@ const Header = () => {
   return (
     <header style={headerStyle}>
       <div style={containerStyle}>
-        {/* Logo */}
+        {/* Logo - Only show text on desktop */}
         <Link to="/" style={logoWrapper}>
           <img src={logo} alt="Queer Kenya Logo" style={logoStyle} />
-          <div>
-            <h1 style={titleStyle}>Queer Kenya</h1>
-            <p style={subtitleStyle}>Empowering Our Community</p>
-          </div>
+          {!isMobile && (
+            <div style={logoTextContainer}>
+              <h1 style={titleStyle}>Queer Kenya</h1>
+              <p style={subtitleStyle}>Empowering Our Community</p>
+            </div>
+          )}
         </Link>
 
         {/* Navigation or Hamburger */}
         {isMobile ? (
           <button onClick={toggleMenu} style={hamburgerButton}>
-            <div style={burger}></div>
-            <div style={burger}></div>
-            <div style={burger}></div>
+            <div style={{ ...burger, transform: isMenuOpen ? 'rotate(-45deg) translate(-5px, 6px)' : '' }}></div>
+            <div style={{ ...burger, opacity: isMenuOpen ? 0 : 1 }}></div>
+            <div style={{ ...burger, transform: isMenuOpen ? 'rotate(45deg) translate(-5px, -6px)' : '' }}></div>
           </button>
         ) : (
           <nav style={navStyle}>
@@ -58,29 +62,38 @@ const Header = () => {
         )}
       </div>
 
-      {/* Mobile Dropdown Menu with animation */}
-      <div
-        style={{
-          ...mobileMenu,
-          maxHeight: isMobile && isMenuOpen ? '500px' : '0px',
-          padding: isMobile && isMenuOpen ? '12px' : '0px 12px',
-        }}
-      >
-        {navLinks.map(({ to, label }) => (
-          <Link
-            key={to}
-            to={to}
-            onClick={toggleMenu}
-            style={{
-              ...mobileLink,
-              ...(isActive(to) ? activeLink : {}),
-            }}
+      {/* Mobile Dropdown Menu */}
+      {isMobile && (
+        <div
+          style={{
+            ...mobileMenu,
+            height: isMenuOpen ? 'auto' : 0,
+            padding: isMenuOpen ? '1rem' : '0 1rem',
+            opacity: isMenuOpen ? 1 : 0,
+          }}
+        >
+          {navLinks.map(({ to, label }) => (
+            <Link
+              key={to}
+              to={to}
+              onClick={toggleMenu}
+              style={{
+                ...mobileLink,
+                ...(isActive(to) ? activeMobileLink : {}),
+              }}
+            >
+              {label}
+            </Link>
+          ))}
+          <Link 
+            to="/contact" 
+            onClick={toggleMenu} 
+            style={mobileCTA}
           >
-            {label}
+            Contact Us
           </Link>
-        ))}
-        <Link to="/contact" onClick={toggleMenu} style={mobileCTA}>Contact Us</Link>
-      </div>
+        </div>
+      )}
     </header>
   );
 };
@@ -94,17 +107,15 @@ const navLinks = [
   { to: '/join-us', label: 'Get Involved' },
 ];
 
-// --- Styles ---
-
+// Styles
 const headerStyle = {
   backgroundColor: '#fff',
   borderBottom: '1px solid #e5e7eb',
-  padding: '12px 24px',
-  fontFamily: 'Segoe UI, sans-serif',
-  boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
+  padding: '1rem',
   position: 'sticky',
   top: 0,
   zIndex: 1000,
+  boxShadow: '0 2px 6px rgba(0,0,0,0.05)',
 };
 
 const containerStyle = {
@@ -113,49 +124,54 @@ const containerStyle = {
   justifyContent: 'space-between',
   maxWidth: '1280px',
   margin: '0 auto',
-  flexWrap: 'wrap',
+  width: '100%',
 };
 
 const logoWrapper = {
-  textDecoration: 'none',
   display: 'flex',
   alignItems: 'center',
+  textDecoration: 'none',
 };
 
 const logoStyle = {
-  width: '140px',
-  height: '120px',
+  width: '150px',
+  height: '150px',
   borderRadius: '8px',
-  marginRight: '19px',
-  marginLeft:'-13px'
+  marginLeft:'-16px',
+  marginRight: '1rem',
+};
+
+const logoTextContainer = {
+  display: 'flex',
+  flexDirection: 'column',
 };
 
 const titleStyle = {
   margin: 0,
-  fontSize: '20px',
+  fontSize: '1.25rem',
   fontWeight: 600,
   color: '#111827',
 };
 
 const subtitleStyle = {
   margin: 0,
-  fontSize: '14px',
+  fontSize: '0.875rem',
   color: '#6b7280',
 };
 
 const navStyle = {
   display: 'flex',
   alignItems: 'center',
-  gap: '22px',
+  gap: '1.5rem',
 };
 
 const navLink = {
-  position: 'relative',
-  textDecoration: 'none',
   color: '#374151',
-  fontSize: '16px',
+  textDecoration: 'none',
+  fontSize: '1rem',
   fontWeight: 500,
-  padding: '6px 0',
+  padding: '0.5rem 0',
+  position: 'relative',
   transition: 'color 0.3s',
 };
 
@@ -168,50 +184,65 @@ const ctaButton = {
   backgroundColor: '#4B0082',
   color: '#fff',
   textDecoration: 'none',
-  padding: '10px 18px',
+  padding: '0.5rem 1rem',
   borderRadius: '8px',
   fontWeight: 600,
-  transition: 'background 0.3s',
+  transition: 'background-color 0.3s',
+};
+
+const hamburgerButton = {
+  background: 'none',
+  border: 'none',
+  cursor: 'pointer',
+  padding: '0.5rem',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  alignItems: 'center',
 };
 
 const burger = {
   width: '25px',
   height: '3px',
   backgroundColor: '#111827',
-  margin: '4px 0',
+  margin: '3px 0',
   borderRadius: '2px',
-};
-
-const hamburgerButton = {
-  background: 'transparent',
-  border: 'none',
-  cursor: 'pointer',
+  transition: 'all 0.3s ease',
 };
 
 const mobileMenu = {
   backgroundColor: '#f9fafb',
   display: 'flex',
   flexDirection: 'column',
-  gap: '12px',
+  gap: '0.75rem',
   overflow: 'hidden',
-  transition: 'all 0.4s ease-in-out',
+  transition: 'all 0.3s ease',
+  width: '100%',
+  maxWidth: '1280px',
+  margin: '0 auto',
 };
 
 const mobileLink = {
-  textDecoration: 'none',
   color: '#1f2937',
-  fontSize: '18px',
+  textDecoration: 'none',
+  fontSize: '1rem',
   fontWeight: 500,
-  padding: '8px 0',
+  padding: '0.75rem 1rem',
+  borderRadius: '4px',
+  transition: 'background-color 0.3s',
+};
+
+const activeMobileLink = {
+  color: '#4B0082',
+  backgroundColor: '#EDE9FE',
 };
 
 const mobileCTA = {
   ...mobileLink,
   backgroundColor: '#4B0082',
   color: '#fff',
-  padding: '10px',
-  borderRadius: '6px',
   textAlign: 'center',
+  marginTop: '0.5rem',
 };
 
 export default Header;
