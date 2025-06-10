@@ -284,7 +284,7 @@ const Team = () => {
             }}>
               View Open Positions
             </a>
-            <a href="/contact" style={{
+            <a href="/join-us" style={{
               backgroundColor: 'transparent',
               color: '#9B87F5',
               fontWeight: '600',

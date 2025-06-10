@@ -195,7 +195,7 @@ const Home = () => {
         }}>
           <h1 style={heroTitleStyles}>Be Proud. Be Bold. Be You.</h1>
           <p style={heroTextStyles}>
-            Queer Kenya is a vibrant space where stories are shared, identities celebrated, and communities united.
+            Whether you are a member of the LGBTQ+ community, an ally, or simply a supporter of human rights and equality, we invite you to join us in our journey towards a more just and inclusive society. Together, we can create a future where every individual is celebrated for who they are, regardless of their sexual orientation, gender identity, or expression.
           </p>
 
           <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
@@ -238,7 +238,7 @@ const Home = () => {
             alt="Illustration of community pride"
             style={{
               width: '100%',
-              maxWidth: isMobile ? '380px' : '400px',
+              maxWidth: isMobile ? '380px' : '450px',
               height: 'auto',
               borderRadius: '1rem',
             }}
@@ -272,8 +272,9 @@ const Home = () => {
               Celebrating Diversity, Embracing Unity
             </h2>
             <p style={diversityTextStyles}>
-              At <strong>Queer Kenya</strong>, we celebrate the spectrum of gender and sexual identities through art,
-              culture, and dialogue. Whether you're looking for community, support, or a place to express yourself freely — you belong here.
+                     
+             <strong>Queer Kenya</strong>  works tirelessly to address the complex challenges and systemic barriers that LGBTQ+ individuals encounter in their daily lives. From advocating for policy reforms and legal protections to providing support networks and resources, we are dedicated to creating a more inclusive and affirming environment where LGBTQ+ individuals can thrive and live authentically.
+            
             </p>
           </div>
         </div>
@@ -444,8 +445,7 @@ const Home = () => {
                   color: '#555',
                   fontSize: isMobile ? '0.9375rem' : '1rem'
                 }}>
-                  A Kenya where LGBTQ+ individuals live with dignity, equality, and the freedom to be their authentic selves without fear of discrimination or violence.
-                </p>
+To create a Kenya where LGBTQ+ individuals are embraced, empowered, and celebrated as equal members of society, free from discrimination and stigma                </p>
               </div>
             </div>
             
@@ -481,7 +481,7 @@ const Home = () => {
                   color: '#555',
                   fontSize: isMobile ? '0.9375rem' : '1rem'
                 }}>
-                  To advocate for the rights of the LGBTQ+ community in Kenya through community support, education, and policy reform, creating a more inclusive and accepting society.
+                  Queer Kenya is dedicated to advocating for the rights, well-being, and inclusion of LGBTQ+ individuals across Kenya. Through education, activism, and community engagement, we strive to promote equality, dismantle systemic barriers, and foster a culture of acceptance and respect. Our mission is rooted in intersectionality, recognizing the interconnectedness of LGBTQ+ rights with feminism, mental health, and other social justice movements
                 </p>
               </div>
             </div>
@@ -587,6 +587,8 @@ const Home = () => {
                     alignItems: 'center',
                     gap: '0.5rem',
                     color: '#555',
+                      marginBottom:'13px',
+
                     fontSize: isMobile ? '0.9375rem' : '1rem'
                   }}>
                     <div style={{
@@ -602,6 +604,72 @@ const Home = () => {
                     }}>✓</div>
                     <span>Community empowerment</span>
                   </li>
+
+                  <li style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '0.75rem',
+                    color: '#555',
+                    fontSize: isMobile ? '0.9375rem' : '1rem'
+                  }}>
+                    <div style={{
+                      minWidth: isMobile ? '20px' : '24px',
+                      height: isMobile ? '20px' : '24px',
+                      borderRadius: '50%',
+                      backgroundColor: '#9B87F5',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: isMobile ? '0.75rem' : '0.875rem'
+                    }}>✓</div>
+                    <span>Intersectionality</span>
+                  </li>
+                  <li style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '0.75rem',
+                    color: '#555',
+                    fontSize: isMobile ? '0.9375rem' : '1rem'
+                  }}>
+                    <div style={{
+                      minWidth: isMobile ? '20px' : '24px',
+                      height: isMobile ? '20px' : '24px',
+                      borderRadius: '50%',
+                      backgroundColor: '#D946EF',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: isMobile ? '0.75rem' : '0.875rem'
+                    }}>✓</div>
+                    <span>Feminism and Gender Equality</span>
+                  </li>
+                  <li style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '0.5rem',
+                    marginBottom: '0.75rem',
+                    color: '#555',
+                    fontSize: isMobile ? '0.9375rem' : '1rem'
+                  }}>
+                    <div style={{
+                      minWidth: isMobile ? '20px' : '24px',
+                      height: isMobile ? '20px' : '24px',
+                      borderRadius: '50%',
+                      backgroundColor: '#F97316',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'white',
+                      fontSize: isMobile ? '0.75rem' : '0.875rem'
+                    }}>✓</div>
+                    <span>Mental health and Well-being</span>
+                  </li>
+                 
+                  
                 </ul>
               </div>
             </div>

@@ -65,20 +65,26 @@ const About = () => {
                 lineHeight: '1.8',
                 color: '#555'
               }}>
-                Queer Kenya was founded in 2018 by a group of passionate activists who recognized the need for a dedicated organization to support LGBTQ+ individuals facing discrimination and stigma in Kenya.
+                Welcome to Queer Kenya, a dynamic and inclusive organization dedicated to advancing the rights and well-being of LGBTQ+ individuals across the nation. At Queer Kenya, we believe in the power of community, activism, and education to create a more inclusive and equitable society for all.
+
+Founded on the principles of equality, diversity, and empowerment, Queer Kenya strives to be a beacon of hope and advocacy in the fight against discrimination and stigma faced by LGBTQ+ individuals in Kenya. Our organization is driven by a passionate team of activists, advocates, and allies who are committed to promoting acceptance, challenging injustice, and fostering positive change.
+
               </p>
               <p style={{
                 marginBottom: '1.5rem',
                 lineHeight: '1.8',
                 color: '#555'
               }}>
-                Starting with small community meetings and support groups, we've grown into a national organization that advocates for policy change, provides mental health resources, creates safe spaces, and works to educate the broader community about LGBTQ+ rights and experiences.
+                Through a multifaceted approach encompassing advocacy, education, and community engagement, Queer Kenya works tirelessly to address the complex challenges and systemic barriers that LGBTQ+ individuals encounter in their daily lives. From advocating for policy reforms and legal protections to providing support networks and resources, we are dedicated to creating a more inclusive and affirming environment where LGBTQ+ individuals can thrive and live authentically.
               </p>
               <p style={{
                 lineHeight: '1.8',
                 color: '#555'
               }}>
-                Our journey has been challenging but impactful, and we continue to grow our community of supporters, allies, and changemakers committed to creating a more inclusive Kenya.
+                Central to our mission is the principle of intersectionality, which recognizes the interconnectedness of LGBTQ+ rights with other social justice movements, including feminism, racial justice, and mental health advocacy. By embracing diversity and amplifying marginalized voices, we strive to build solidarity and foster meaningful collaborations that uplift and empower all members of our community.
+
+Whether you are a member of the LGBTQ+ community, an ally, or simply a supporter of human rights and equality, we invite you to join us in our journey towards a more just and inclusive society. Together, we can create a future where every individual is celebrated for who they are, regardless of their sexual orientation, gender identity, or expression.
+
               </p>
             </div>
             <div style={{
@@ -88,10 +94,10 @@ const About = () => {
             }}>
               <img 
                 src="https://img.freepik.com/free-photo/cute-pink-dolphins-water_23-2150866317.jpg?uid=R99210820&ga=GA1.1.1338765476.1744701059&semt=ais_hybrid&w=740" 
-                alt="Queer Kenya community members in discussion" 
+                alt="Queer Kenya community" 
                 style={{
                   width: '100%',
-                  height: '300px',
+                  height: '600px',
                   objectFit: 'cover'
                 }}
               />
@@ -528,7 +534,7 @@ const About = () => {
             justifyContent: 'center',
             flexWrap: 'wrap'
           }}>
-            <a href="/contact" style={{
+            <a href="/join-us" style={{
               display: 'inline-block',
               backgroundColor: 'white',
               color: '#9B87F5',
