@@ -15,19 +15,7 @@ const Team = () => {
         linkedin: "#"
       }
     },
-    {
-      id: 2,
-      name: "Dr. Brian Kimani",
-      role: "Lead Medical Consultant",
-      specialization: "Mental Health Specialist",
-      bio: "Dr. Kimani specializes in providing mental health support to LGBTQ+ individuals and develops training programs for healthcare providers.",
-      image: "https://img.freepik.com/free-photo/comic-book-lifestyle-scene-with-icecream_23-2151133657.jpg?uid=R99210820&ga=GA1.1.1338765476.1744701059&semt=ais_hybrid&w=740",
-      social: {
-        twitter: "#",
-        instagram: "#",
-        linkedin: "#"
-      }
-    },
+  
     {
       id: 3,
       name: "Daisy Wanjiku",
@@ -35,19 +23,6 @@ const Team = () => {
       specialization: "Front-End Developer",
       bio: "Daisy contributes her technical expertise to improve our digital presence and enhance accessibility of our online resources.",
       image: "https://img.freepik.com/free-photo/medium-shot-woman-posing-with-parrot_23-2151403719.jpg?uid=R99210820&ga=GA1.1.1338765476.1744701059&semt=ais_hybrid&w=740",
-      social: {
-        twitter: "#",
-        instagram: "#",
-        linkedin: "#"
-      }
-    },
-    {
-      id: 4,
-      name: "Kevin Otieno",
-      role: "Software Engineer",
-      specialization: "Cybersecurity Expert",
-      bio: "Kevin ensures the security and privacy of our digital platforms and provides guidance on online safety for LGBTQ+ individuals.",
-      image: "https://img.freepik.com/free-photo/digital-art-loving-connection_23-2151106255.jpg?uid=R99210820&ga=GA1.1.1338765476.1744701059&semt=ais_hybrid&w=740",
       social: {
         twitter: "#",
         instagram: "#",

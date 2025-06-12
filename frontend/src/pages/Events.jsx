@@ -8,36 +8,6 @@ const Events = () => {
   
   const events = [
     {
-      id: 1,
-      title: "Pride Month Celebration",
-      date: "June 15, 2025",
-      time: "2:00 PM - 8:00 PM",
-      location: "Uhuru Park, Nairobi",
-      description: "Join us for a colorful celebration of pride with music, performances, and community speakers. This family-friendly event features food vendors, art exhibits, and educational booths about LGBTQ+ rights in Kenya.",
-      image: "https://img.freepik.com/free-photo/digital-art-international-women-s-day-celebration-women-s-rights_23-2151368461.jpg",
-      type: "upcoming"
-    },
-    {
-      id: 2,
-      title: "LGBTQ+ Rights Workshop",
-      date: "July 8, 2025",
-      time: "10:00 AM - 1:00 PM",
-      location: "Queer Kenya Community Center",
-      description: "Learn about legal rights and protections for LGBTQ+ individuals in Kenya with expert speakers. This workshop will cover topics like housing discrimination, workplace rights, and how to handle police interactions.",
-      image: "https://img.freepik.com/free-photo/conceptual-digital-art-diversity-around-world_23-2151437574.jpg",
-      type: "upcoming"
-    },
-    {
-      id: 3,
-      title: "Mental Health Support Group",
-      date: "July 20, 2025",
-      time: "6:00 PM - 8:00 PM",
-      location: "Online (Zoom)",
-      description: "A safe space for LGBTQ+ individuals to discuss mental health challenges and coping strategies. Facilitated by licensed therapists specializing in LGBTQ+ issues. Confidential and judgment-free environment.",
-      image: "https://img.freepik.com/free-photo/international-kissing-day-celebration_23-2151185086.jpg",
-      type: "upcoming"
-    },
-    {
       id: 4,
       title: "International Day Against Homophobia",
       date: "May 17, 2025",
@@ -66,30 +36,12 @@ const Events = () => {
       description: "An elegant evening to raise funds for Queer Kenya's community support programs. Features live entertainment, silent auction, and keynote speech by prominent LGBTQ+ activist.",
       image: "https://img.freepik.com/free-photo/international-women-s-day-celebration-equal-right-digital-art-style_23-2151368425.jpg",
       type: "past"
-    },
-    {
-      id: 7,
-      title: "Youth LGBTQ+ Meetup",
-      date: "August 12, 2025",
-      time: "3:00 PM - 6:00 PM",
-      location: "Safe Space Cafe, Nairobi",
-      description: "A social gathering for LGBTQ+ youth (ages 16-25) to connect, share experiences, and build community. Games, music, and facilitated discussions.",
-      image: "https://img.freepik.com/free-photo/group-diverse-people-having-business-meeting_53876-25060.jpg",
-      type: "upcoming"
-    },
-    {
-      id: 8,
-      title: "Transgender Awareness Week",
-      date: "November 13-19, 2025",
-      time: "Various Times",
-      location: "Nairobi and Mombasa",
-      description: "Series of events celebrating transgender lives and raising awareness about issues facing the trans community in Kenya. Includes workshops, support groups, and public art installations.",
-      image: "https://img.freepik.com/free-photo/beautiful-woman-with-curly-hairstyle_23-2148310351.jpg",
-      type: "upcoming"
     }
   ];
 
-  const filteredEvents = filter === 'all' ? events : events.filter(event => event.type === filter);
+  const filteredEvents = filter === 'all' 
+    ? events 
+    : events.filter(event => event.type === filter);
 
   // Responsive styles
   const heroStyles = {
@@ -145,7 +97,7 @@ const Events = () => {
             margin: '0 auto',
             lineHeight: '1.6'
           }}>
-            Join us for community gatherings, workshops, celebrations, and advocacy events.
+            Browse our community gatherings, workshops, and advocacy events.
           </p>
         </div>
       </section>
@@ -212,7 +164,6 @@ const Events = () => {
   );
 };
 
-// Component for individual event cards
 const EventCard = ({ event, isMobile }) => (
   <div style={{
     backgroundColor: 'white',
@@ -283,7 +234,6 @@ const EventCard = ({ event, isMobile }) => (
   </div>
 );
 
-// Component for event details with icons
 const EventDetail = ({ icon, text }) => (
   <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', marginBottom: '0.75rem' }}>
     {icon === 'time' ? (
@@ -301,7 +251,6 @@ const EventDetail = ({ icon, text }) => (
   </div>
 );
 
-// Component for no events message
 const NoEventsMessage = ({ filter, setFilter, isMobile }) => (
   <div style={{
     textAlign: 'center',
@@ -323,7 +272,9 @@ const NoEventsMessage = ({ filter, setFilter, isMobile }) => (
       marginBottom: '1.5rem',
       fontSize: isMobile ? '0.875rem' : '1rem'
     }}>
-      There are currently no {filter === 'upcoming' ? 'upcoming' : 'past'} events to display.
+      {filter === 'upcoming' 
+        ? 'There are currently no upcoming events scheduled. Check back later!' 
+        : 'There are currently no past events to display.'}
     </p>
     <button 
       onClick={() => setFilter('all')}
@@ -334,7 +285,6 @@ const NoEventsMessage = ({ filter, setFilter, isMobile }) => (
   </div>
 );
 
-// Component for newsletter section
 const NewsletterSection = ({ isMobile }) => (
   <section style={{
     padding: isMobile ? '3rem 1rem' : '4rem 2rem',
@@ -396,7 +346,6 @@ const NewsletterSection = ({ isMobile }) => (
   </section>
 );
 
-// Shared button styles
 const primaryButtonStyles = {
   backgroundColor: '#9B87F5',
   color: 'white',
